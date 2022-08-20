@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: n1
+  labels: 
+    app: n1
+spec: 
+  containers: 
+    - name: n1
+      image: nginx:1.14
+      imagePullPolicy: Never
+      ports: 
+      - containerPort: 80 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: n1
+  name: n1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: n1
+  type: NodePort
+status:
+  loadBalancer: {}
