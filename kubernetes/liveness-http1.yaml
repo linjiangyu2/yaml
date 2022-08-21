@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: livenes2
+spec: 
+  containers: 
+  - name: nginx-liveness
+    image: nginx:1.14
+    imagePullPolicy: IfNotPresent
+    ports: 
+    - name: http
+      containerPort: 80
+    livenessProbe: 
+      httpGet:
+        port: http
+        path: /index.html
+      initialDelaySeconds: 5
+      periodSeconds: 5
