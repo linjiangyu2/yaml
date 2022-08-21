@@ -1,9 +1,7 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata: 
   name: livenes2
-  labels:
-    app: nginx-lv
 spec: 
   containers: 
   - name: nginx-liveness
