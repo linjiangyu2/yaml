@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-dm
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-dm
+  template:
+    metadata:
+      labels:
+        app: nginx-dm
+    spec:
+      containers:
+      - name: nginx-dm
+        image: nginx:1.14
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 80
+---
+apiVersion:
+kind: Service
+metadata:
+  creationTimestamp: null
+  name: dm
+  labels:
+    app: nginx-dm
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nginx-dm
+  type: NodePort
