@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: prestop1
+  namespace: default
+spec:
+  containers: 
+  - name: nginx-pr
+    image: nginx:1.14
+    imagePullPolicy: IfNotPresent
+    ports:
+    - name: http
+      containerPort: 80
+    volumeMounts:
+    - name: messages
+      mountPath: /usr/share/nginx/html/
+    lifecycle:
+      preStop:
+        exec:
+          command: ["/bin/sh","-c","echo 'Web server will stop' > /usr/share/nginx/index.html"]
+    volumes:
+    - name: messages
+      hostPath: 
+        path: /tmp
