@@ -16,7 +16,7 @@ spec:
     - name: http
       containerPort: 80
 ---
-apiVersion:
+apiVersion: v1
 kind: Service
 metadata:
   labels:
