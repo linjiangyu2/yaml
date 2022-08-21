@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: livenes2
+  labels:
+    app: nginx-lv
+spec: 
+  containers: 
+  - name: nginx-liveness
+    image: nginx:1.14
+    imagePullPolicy: IfNotPresent
+    ports: 
+    - name: http
+      containerPort: 80
+    args: 
+    - /bin/bash
+    - sleep 60; nginx -s stop; sleep 600
+    livenessProbe: 
+      httpGet:
+        port: http
+        path: /index.html
+    initialDelaySeconds: 5
+    periodSeconds: 5
