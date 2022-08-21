@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: halo
+  name: halo
+spec:
+  clusterIP: None
+  selector:
+    app: halo
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: halo
+  name: halo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: halo
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: halo
+    spec:
+      containers:
+      - image: linjiangyu/halo:v2
+        name: halo
+        resources: {}
+status: {}
