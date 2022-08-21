@@ -16,5 +16,5 @@ spec:
         command: 
         - cat
         - /tmp/test
-      initalDelaySeconds: 5     #Pod启动后延迟5秒探测
+      initalDelaySeconds: 5     #在Pod启动后延迟5秒探测
       periodSeconds: 5          #每5秒探测一次
