@@ -16,19 +16,19 @@ spec:
     image: docker.io/progrium/stress
     imagePullPolicy: IfNotPresent
     resources: 
-      requests: 
-        memory: [ "100Mi" ]
+      requests:
+        memory: "100Mi"
       limits: 
-        memory: [ "200Mi" ]
+        memory: "200Mi"
     command: [ "stress" ]
     args: [ "--vm","1","--vm-byte","190M","--vm-hang","1" ]
   - name: stress2-pod2
     image: docker.io/progrium/stress
     imagePullPolicy: IfNotPresent
     resources: 
-      requests: 
-        memory: [ "100Mi" ]
+      requests:
+        memory: "100Mi"
       limits: 
-        memory: [ "200Mi" ]
+        memory: "200Mi"
     command: [ "stress" ]
     args: [ "--vm","1","--vm-byte","210M","--vm-hang","1" ]
