@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: namenode1
+  namespace: default
+spec:
+  nodeName: node3
+  containers:
+  - name: nginx-nn
+    image: nginx:1.14
+    imagePullPolicy: IfNotPresent
+    ports:
+    - name: http
+      contianerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dd
+  labels:
+    app: namenode1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  type: NodePort
