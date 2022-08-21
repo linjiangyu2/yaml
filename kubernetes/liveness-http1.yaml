@@ -17,5 +17,5 @@ spec:
       httpGet:
         port: http
         path: /index.html
-    initialDelaySeconds: 5
-    periodSeconds: 5
+      initialDelaySeconds: 5
+      periodSeconds: 5
