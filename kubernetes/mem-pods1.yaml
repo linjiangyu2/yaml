@@ -8,7 +8,7 @@ metadata:
 apiVersion: v1
 kind: Pod
 metadata: 
-  name: pod2-stree
+  name: pod2-stress
   namespace: mem
 spec: 
   containers: 
