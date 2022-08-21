@@ -18,7 +18,7 @@ spec:
       preStop:
         exec:
           command: ["/bin/sh","-c","echo 'Web server will stop' > /usr/share/nginx/index.html"]
-    volumes:
-    - name: messages
-      hostPath: 
-        path: /tmp
+  volumes:
+  - name: messages
+    hostPath: 
+      path: /tmp
