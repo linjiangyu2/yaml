@@ -3,6 +3,8 @@ kind: Pod
 metadata: 
   name: readiness1
   namespace: default
+  labels:
+    app: readiness1
 spec: 
   containers: 
   - name: nginx-readiness1
