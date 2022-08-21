@@ -1,0 +1,32 @@
+#这里已经把想要的指定节点打上了app=webserver标签
+#kubectl label nodes node2 app=webserver
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: nodeSelector1
+  namespace: default
+spec:
+  nodeSelector:
+    app: webserver
+  containers:
+  - name: nginx-ns
+    image: nginx:latest
+    imagePullPolicy: IfNotPresent
+    ports:
+    - name: http
+      containerPort: 80
+---
+apiVersion:
+kind: Service
+metadata:
+  labels:
+    app: dd
+  name: dd
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nodeSelector1
+  type: NodePort
