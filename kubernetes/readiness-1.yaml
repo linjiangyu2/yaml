@@ -31,4 +31,4 @@ spec:
   - port: 80
     targetPort: 80
   selector: 
-    app: nginx-readiness1
+    app: readiness1
