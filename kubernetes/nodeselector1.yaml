@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: Pod
 metadata: 
-  name: nodeSelector1
+  name: nodeselector1
   namespace: default
 spec:
   nodeSelector:
@@ -28,5 +28,5 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: nodeSelector1
+    app: nodeselector1
   type: NodePort
