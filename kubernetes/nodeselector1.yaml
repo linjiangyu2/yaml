@@ -7,7 +7,7 @@ metadata:
   namespace: default
 spec:
   nodeSelector:
-    app: webserver
+    app: webserver        #把Pod调度到label是webserver的节点上
   containers:
   - name: nginx-ns
     image: nginx:latest
