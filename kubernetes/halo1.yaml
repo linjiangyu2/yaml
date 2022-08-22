@@ -7,14 +7,14 @@ metadata:
   name: halo1
   labels:
     app: halo1
-  spec: 
-    ports:
-    - port: 8090
-      protocol: TCP
-      targetPort: 8090
-    selector:
-      app: halo-web
-    type: NodePort
+spec: 
+  ports:
+  - port: 8090
+    protocol: TCP
+    targetPort: 8090
+  selector:
+    app: halo-web
+  type: NodePort
 ---
 #Deployment
 apiVersion: apps/v1
@@ -23,25 +23,25 @@ metadata:
   name: halo-dm
   labels:
     app: halo-dm
-  spec:
-    replicas: 3
-    selector: 
-      matchLabels:
-        app: halo-web
-    template:
-      metadata:
-        labels:
-        - name: halo-web
-      spec:
-        containers:
-        - name: halo-web
-          image: linjiangyu/halo:v2
-          imagePullPolicy: Never
-          ports:
-          - name: web-http
-            containerPort: 8090  
-          livenessProbe: 
-            tcpSocket: 8090
-            initialDelaySeconds: 3
-            periodSeconds: 5
-        restartPolicy: OnFailure
+spec:
+  replicas: 3
+  selector: 
+    matchLabels:
+      app: halo-web
+  template:
+    metadata:
+      labels:
+      - name: halo-web
+    spec:
+      containers:
+      - name: halo-web
+        image: linjiangyu/halo:v2
+        imagePullPolicy: Never
+        ports:
+        - name: web-http
+          containerPort: 8090  
+        livenessProbe: 
+          tcpSocket: 8090
+          initialDelaySeconds: 3
+          periodSeconds: 5
+      restartPolicy: OnFailure
