@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: dm-replicaset
+  name: nginx-rs
   namespace: default
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: nginx-replicaset1
+      app: nginx-rs
   template:
     metadata:
       name: nginx-replicaset1
