@@ -45,4 +45,4 @@ spec:
             port: 8090
           initialDelaySeconds: 3
           periodSeconds: 5
-#      restartPolicy: OnFailure    此处测试错误，因为Deployment Controllrt 控制器有自己的重启策略
+#      restartPolicy: OnFailure    此处测试错误，因为Deployment Controllrt 控制器拥有有自己的重启策略
