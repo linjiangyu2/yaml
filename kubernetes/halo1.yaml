@@ -31,7 +31,7 @@ spec:
   template:
     metadata:
       labels:
-      - name: halo-web
+        app: halo-web
     spec:
       containers:
       - name: halo-web
@@ -41,7 +41,8 @@ spec:
         - name: web-http
           containerPort: 8090  
         livenessProbe: 
-          tcpSocket: 8090
+          tcpSocket:
+            port: 8090
           initialDelaySeconds: 3
           periodSeconds: 5
       restartPolicy: OnFailure
