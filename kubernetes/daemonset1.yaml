@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nginx-daemonset1
+spec:
+  selector:
+    matchLabels:
+      app: nginx-ds  #匹配Pod
+    template:
+      metadata:
+        labels:
+          app: nginx-ds
+      spec:
+        tolerations:         #容忍
+        - key: node-role.kubernetes.io/master  #能容忍的key
+          effect: NoSchedule   #
