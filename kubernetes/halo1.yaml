@@ -1,0 +1,42 @@
+#svc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  name: halo1
+  labels:
+    app: halo1
+  spec: 
+    ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+    selector:
+      app: halo-web
+    type: NodePort
+---
+#Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: halo-dm
+  labels:
+    app: halo-dm
+  spec:
+    replicas: 3
+    selector: 
+      matchLabels:
+        app: halo-web
+    template:
+      metadata:
+        labels:
+        - name: halo-web
+      spec:
+        containers:
+        - name: halo-web
+          image: linjiangyu/halo:v2
+          imagePullPolicy: Never
+          ports:
+          - name: web-http
+            containerPort: 80  
