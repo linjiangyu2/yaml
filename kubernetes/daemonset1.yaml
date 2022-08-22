@@ -6,20 +6,20 @@ spec:
   selector:
     matchLabels:
       app: nginx-ds  #匹配Pod
-    template:
-      metadata:
-        labels:
-          app: nginx-ds
-      spec:
-        tolerations:         #容忍
-        - key: node-role.kubernetes.io/master  #能容忍的key
-          effect: NoSchedule   #
-        contianers:
-        - name: nginx-ds
-          image: nginx:latest
-          imagePullPolicy: IfNotPresent
-          resources:
-            requests:
-              memory: 100Mi
-            limits:
-              memory: 100Mi
+  template:
+    metadata:
+      labels:
+        app: nginx-ds
+    spec:
+      tolerations:         #容忍
+      - key: node-role.kubernetes.io/master  #能容忍的key
+        effect: NoSchedule   #
+      containers:
+      - name: nginx-ds
+        image: nginx:latest
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: 100Mi
+          limits:
+            memory: 100Mi
