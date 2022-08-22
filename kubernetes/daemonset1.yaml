@@ -14,3 +14,12 @@ spec:
         tolerations:         #容忍
         - key: node-role.kubernetes.io/master  #能容忍的key
           effect: NoSchedule   #
+        contianers:
+        - name: nginx-ds
+          image: nginx:latest
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: 100Mi
+            limits:
+              memory: 100Mi
