@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: dm-replicaset
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-replicaset1
+  template:
+    metadata:
+      name: nginx-replicaset1
+      labels:
+        app: nginx-rs
+    spec: 
+      containers:
+      - name: nginx-rs
+        image: nginx:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  name: nginx-rs
+  labels:
+    app: nginx-rs
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nginx-rs
+  type: NodePort
