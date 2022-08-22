@@ -34,8 +34,8 @@ spec:
         app: halo-web
     spec:
       containers:
-      - name: halo-web
-        image: linjiangyu/halo:v2
+      - name: halo-web             #kubectl rollout history deployment halo-dm记录,kubectl rollout undo deployment --to-revision=1回滚到1记录
+        image: linjiangyu/halo:v2  #改成linjiangyu/halo:v4 滚动更新 
         imagePullPolicy: Never
         ports:
         - name: web-http
