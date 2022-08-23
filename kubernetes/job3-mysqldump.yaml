@@ -9,7 +9,7 @@ spec:
     metadata:
       name: mysql-dump
     spec:
-      nodename: node2
+      nodeName: node2
       containers:
       - name: mysql-dump
         image: mysql:latest
