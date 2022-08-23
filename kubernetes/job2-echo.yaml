@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: busyboxplus
-        image: radial/busyboxplus
+        image: radial/busyboxplus 
         image: IfNotPresent
         command: ["echo", "hhhhh"]
       restartPolicy: Never
