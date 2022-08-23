@@ -3,7 +3,7 @@ kind: Job
 metadata:
   name: job2
 spec:
-  completions: 10  #Job的执行次数
+  completions: 10  #Job的执行次数 数量和并发数决定着会运行多少个Pod
   parallelism: 1   #执行并发数
   template:
     metadata:
