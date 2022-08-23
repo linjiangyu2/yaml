@@ -12,6 +12,6 @@ spec:
       containers:
       - name: busyboxplus
         image: radial/busyboxplus 
-        image: IfNotPresent
+        imagePullPolicy: IfNotPresent
         command: ["echo", "hhhhh"]
       restartPolicy: Never
