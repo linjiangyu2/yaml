@@ -14,7 +14,7 @@ spec:
       - name: mysql-dump
         image: mysql:latest
         imagePullPolicy: IfNotPresent
-        command: ["/bin/sh", "-c", "mysqldump --host=mysql-state -uroot -pabcd0702 --databases mysql > /root/mysql-k8s.sql"]
+        command: ["/bin/sh", "-c", "mysqldump --host=mysqldump-svc-job -uroot -pabcd0702 --databases mysql > /root/mysql-k8s.sql"]
         volumeMounts:
         - mountPath: /root
           name: mysql-data
