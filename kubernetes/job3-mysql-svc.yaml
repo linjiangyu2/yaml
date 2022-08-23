@@ -29,7 +29,7 @@ spec:
       labels:
         app: mysql-state
     spec:
-      nodename: node3
+      nodeName: node3
       containers:
       - name: mysql
         image: mysql:latest
