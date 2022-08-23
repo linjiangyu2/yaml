@@ -1,48 +1,46 @@
-#svc,StatefulSet
----
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysqldump-svc-job
+  name: mysql-test
   namespace: default
 spec:
   ports:
   - port: 3306
-    protocol: TCP
+    name: mysql
   clusterIP: None
   selector:
-    app: mysql-state
+    app: mysql-dump
+
 ---
-#mysql-state  StatefulSet
+
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: mysqldb
+  name: db
   namespace: default
 spec:
   selector:
     matchLabels:
-      app: mysql-state
-  serviceName: mysqldump-svc-job
+      app: mysql-dump
+  serviceName: "mysql-test"
   template:
     metadata:
       labels:
-        app: mysql-state
+        app: mysql-dump
     spec:
-      nodeName: node3
+      nodeName: worker03
       containers:
       - name: mysql
-        image: mysql:latest
-        imagePullPolicy: IfNotPresent
+        image: harbor.wego.red/library/mysql:5.7
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: 'abcd0702'
+          value: "abc123"
         ports:
         - containerPort: 3306
         volumeMounts:
-        - mountPath: /var/lib/mysql
+        - mountPath: "/var/lib/mysql"
           name: mysql-data
       volumes:
       - name: mysql-data
         hostPath:
-          path: /data
+          path: /opt/mysqldata
