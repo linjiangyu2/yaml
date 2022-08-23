@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job1
+spec:
+  template:
+    metadata:
+      name: job1
+    spec:
+      containers:
+      - name: pi
+        image: perl
+        imagePullPolicy: IfNotPresent
+        command: ["perl", "-Mbingnum=bpo", "-wle", "print bpi(2000)"]
+      restartPolicy: Never  #执行完不再重启
