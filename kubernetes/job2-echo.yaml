@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job2
+spec:
+  completions: 10  #Job的执行次数
+  parallelism: 1   #执行并发数
+  template:
+    metadata:
+      name: job2
+    spec:
+      containers:
+      - name: busyboxplus
+        image: busyboxplus:latest
+        image: IfNotPresent
+        command: ["echo", "hhhhh"]
+      restartPolicy: Never
