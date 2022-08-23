@@ -1,0 +1,25 @@
+#mysqldump work namenode:node2 Job
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mysql-dump
+spec:
+  template:
+    metadata:
+      name: mysql-dump
+    spec:
+      nodename: node2
+      containers:
+      - name: mysql-dump
+        image: mysql:latest
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh", "-c", "mysqldump --host=mysql-state -uroot -pabcd0702 --databases mysql > /root/mysql-k8s.sql"]
+        volumeMounts:
+        - mountPath: /root
+          name: mysql-data
+      restartPolicy: Never
+      volumes:
+      - name: mysql-data
+        hostPath:
+          path: /data  
