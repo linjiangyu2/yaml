@@ -23,7 +23,7 @@ spec:
   selector:
     matchLabels:
       app: mysql-state
-  servicename: mysqldump-svc-job
+  serviceName: mysqldump-svc-job
   template:
     metadata:
       labels:
