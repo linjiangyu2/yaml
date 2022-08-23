@@ -11,5 +11,5 @@ spec:
       - name: pi         #容器名
         image: perl:latest
         imagePullPolicy: IfNotPresent
-        command: ["perl", "-Mbingnum=bpo", "-wle", "print bpi(2000)"]
+        command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never  #执行完不再重启
