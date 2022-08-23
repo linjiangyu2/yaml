@@ -1,3 +1,4 @@
+#Error to mysql connect host no found 
 #svc,StatefulSet
 ---
 apiVersion: v1
