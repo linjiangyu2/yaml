@@ -4,7 +4,7 @@ metadata:
   name: cronjob1
 spec:
   schedule: "*/2 * * * *"
-  jobTemPlate:
+  jobTemplate:
     spec:
       template:
         spec:
