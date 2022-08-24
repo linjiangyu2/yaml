@@ -8,6 +8,7 @@ spec:
     spec:
       template:
         spec:
+          nodeName: node2
           containers:
           - name: nginx-job1
             image: nginx:latest
@@ -16,7 +17,15 @@ spec:
             ports:
             - name: http
               containerPort: 80
+            volumeMounts:
+            - name: index
+              mountPath: /usr/share/nginx/html/
+          volumes:
+          - name: index
+            hostPath:
+              path: /opt/nginx-job
           restartPolicy: OnFailure
+          
 ---
 apiVersion: v1
 kind: Service
