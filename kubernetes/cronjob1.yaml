@@ -15,7 +15,7 @@ spec:
             command: ["/bin/sh", "-c", "echo $(date) >> /usr/share/nginx/html/index.html"]
             ports:
             - name: http
-              contianerPort: 80
+              containerPort: 80
 ---
 apiVersion: v1
 kind: Service
