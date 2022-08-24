@@ -10,7 +10,7 @@ spec:
     name: mysql
   clusterIP: None
   selector:
-    app: mysql-cronjob
+    app: mysql-cronjob    #关联app标签为mysql-cronjob
 --- #StatfulSet
 apiVersion: apps/v1
 kind: StatefulSet
@@ -20,53 +20,53 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: mysql-dump
-  serviceName: mysql-cronjob
+      app: mysql-dump     #匹配mysql-dump
+  serviceName: mysql-cronjob   #关联mysql-cronjob SVC
   template:
     metadata:
       labels:
-        app: mysql-dump
+        app: mysql-dump      #打上mysql-dump标签
     spec:
-      nodeName: node2
+      nodeName: node2     #指定调度到node2
       containers:
-      - name: mysql
+      - name: mysql       #容器名
         image: mysql
         imagePullPolicy: IfNotPresent
         env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: abcd0702
+        - name: MYSQL_ROOT_PASSWORD          #键
+          value: abcd0702                    #值
         ports:
-        - name: mysql-port
+        - name: mysql-port    
           containerPort: 3306
         volumeMounts:
-        - mountPath: /var/lib/mysql
-          name: mysql-data
+        - mountPath: /var/lib/mysql  #把存储卷挂载到容器的/var/lib/mysql
+          name: mysql-data           #指存储据卷名为mysql-data
       volumes:
-      - name: mysql-data
+      - name: mysql-data             #创建存储卷mysql-data
         hostPath: 
-          path: /opt/mysql-data
+          path: /opt/mysql-data      #存储卷的宿主机真实目录路径在/opt/mysql-data
 --- #CronJob
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: mysql-dump
+  name: mysql-dump         #CronJob名mysql-dump
 spec:
-  schedule: "*/5 * * * *"
+  schedule: "*/5 * * * *"  #每5分钟执行一次
   jobTemplate:
     spec:
       template:
         spec:
-          nodeName: node3
+          nodeName: node3  #指定调度到node3
           containers:
-          - name: m1
-            image: mysql
-            imagePullPolicy: IfNotPresent
+          - name: m1       #容器名
+            image: mysql   
+            imagePullPolicy: IfNotPresent   #下面是在容器里面对主机名为svc服务名称的数据库备份命令，备份到/root目录下
             command: ["/bin/sh","-c","mysqldump --host=mysql-cronjob -uroot -pabcd0702 --databases mysql > /root/mysql$(date +%Y%m%d%H%M).sql"]
             volumeMounts:
-            - name: mysql-data
-              mountPath: /root
+            - name: mysql-data          #指定挂载存储卷mysql-data
+              mountPath: /root          #存储卷挂载到/root目录
           volumes:
-          - name: mysql-data
+          - name: mysql-data            #创建存储卷
             hostPath:
-              path: /opt/mysqldump-data
-          restartPolicy: Never
+              path: /opt/mysqldump-data #存储卷的宿主机真实目录路径在/opt/mysqldump-data
+          restartPolicy: Never          #从不重启
