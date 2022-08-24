@@ -64,8 +64,8 @@ spec:
             volumeMounts:
             - name: mysql-data
               mountPath: /root
-          restartPolicy: Never
           volumes:
           - name: mysql-data
             hostPath:
               path: /opt/mysqldump-data
+          restartPolicy: Never
