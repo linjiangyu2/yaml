@@ -43,7 +43,8 @@ spec:
           name: mysql-data
       volumes:
       - name: mysql-data
-        hostPath: /opt/mysql-data
+        hostPath: 
+          path: /opt/mysql-data
 --- #CronJob
 apiVersion: batch/v1
 kind: CronJob
