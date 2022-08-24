@@ -1,0 +1,71 @@
+--- #svc
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-cronjob      #pod的mysql容器连接的主机名
+  namespace: default
+spec:
+  ports:
+  - port: 3306
+    name: mysql
+  clusterIP: None
+  selector:
+    app: mysql-cronjob
+--- #StatfulSet
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-db
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: mysql-dump
+  serviceName: mysql-cronjob
+  template:
+    metadata:
+      labels:
+        app: mysql-dump
+    spec:
+      nodeName: node2
+      containers:
+      - name: mysql
+        image: mysql
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: abcd0702
+        ports:
+        - name: mysql-port
+          containerPort: 3306
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: mysql-data
+      volumes:
+      - name: mysql-data
+        hostPath: /opt/mysql-data
+--- #CronJob
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mysql-dump
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          nodename: node3
+          contianers:
+          - name: m1
+            image: mysql
+            imagePullPolicy: IfNotPresent
+            command: ["/bin/sh","-c","mysqldump --host=mysql-cronjob -uroot -pabcd0702 --databases mysql > /root/mysql$(date +%Y%m%d%H%M).sql"]
+            volumeMounts:
+            - name: mysql-data
+              mountPath: /root
+          restartPolicy: Never
+          volumes:
+          - name: mysql-data
+            hostPath:
+              path: /opt/mysqldump-data
