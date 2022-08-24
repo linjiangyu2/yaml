@@ -57,7 +57,7 @@ spec:
       template:
         spec:
           nodename: node3
-          contianers:
+          containers:
           - name: m1
             image: mysql
             imagePullPolicy: IfNotPresent
