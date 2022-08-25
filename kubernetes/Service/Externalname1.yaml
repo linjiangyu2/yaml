@@ -16,10 +16,11 @@ metadata:
 spec: 
   replicas: 2
   selector:
-    app: nginx-en
+    matchLabels:
+      app: nginx-en
   template:
     metadata:
-      matchLabels:
+      labels:
         app: nginx-en
     spec:
       containers:
