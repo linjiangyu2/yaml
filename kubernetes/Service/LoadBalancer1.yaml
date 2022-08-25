@@ -28,7 +28,7 @@ spec:
     type: LoadBalancer
     app: nginx-lb
   ports:
-    port: 8090
+  - port: 8090
     protocol: TCP
     targetPort: 80
 
