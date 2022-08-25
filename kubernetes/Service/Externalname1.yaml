@@ -18,13 +18,14 @@ spec:
   selector:
     app: nginx-en
   template:
-    matchLabels:
-      app: nginx-en
-  spec:
-    containers:
-    - name: nginx-en1
-      image: nginx:latest
-      imagePullPolicy: IfNotPresent
-      ports:
-      - name: nginx-http
-        containerPort: 80
+    metadata:
+      matchLabels:
+        app: nginx-en
+    spec:
+      containers:
+      - name: nginx-en1
+        image: nginx:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: nginx-http
+          containerPort: 80
