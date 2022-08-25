@@ -18,7 +18,7 @@ spec:
   selector:
     app: nginx-en
   template:
-    matchLables:
+    matchLabels:
       app: nginx-en
   spec:
     containers:
