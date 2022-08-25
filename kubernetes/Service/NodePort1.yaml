@@ -8,11 +8,11 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: nginx-np1
+      app: nginx-np1          #关联Pod的标签
   template:
     metadata:
       labels:
-        app: nginx-np1
+        app: nginx-np1   #Pod标签
     spec:
       containers:
       - name: n1
@@ -30,7 +30,7 @@ metadata:
 spec:
   type: NodePort
   selector: 
-    app: np1
+    app: nginx-np1     #关联Pod的标签
   ports:
   - port: 80
     protocol: TCP
