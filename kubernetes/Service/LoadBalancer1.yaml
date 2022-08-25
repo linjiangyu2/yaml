@@ -24,11 +24,12 @@ kind: Service
 metadata:
   name: lb
 spec:
+  selector:
+    type: LoadBalancer
+    app: nginx-lb
   ports:
-  - type: LoadBalancer
     port: 8090
     protocol: TCP
     targetPort: 80
-  selector:
-    app: nginx-lb
+
     
