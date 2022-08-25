@@ -15,7 +15,7 @@ spec:
       containers:
       - name: n1
         image: nginx:latest
-        imagePullPolicy: IfNotPullPresent
+        imagePullPolicy: IfNotPresent
         ports:
         - name: http
           containerPort: 80
