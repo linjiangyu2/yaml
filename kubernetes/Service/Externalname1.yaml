@@ -4,5 +4,27 @@ metadata:
   name: en1
   namespace: default
 spec:
+  selector:
+    app: nginx-en
   type: ExternalName
   externalName: baidu.com  #把服务的域名指定为baidu.com
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dm1
+spec: 
+  replicas: 2
+  selector:
+    app: nginx-en
+  template:
+    matchLables:
+      app: nginx-en
+  spec:
+    containers:
+    - name: nginx-en1
+      image: nginx:latest
+      imagePullPolicy: IfNotPresent
+      ports:
+      - name: nginx-http
+        containerPort: 80
