@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx
+  name: nginx   #Controllrt控制器的名字
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: nginx
+      app: nginx  #匹配名为nginx的Pod
   template:
     metadata:
       labels:
-        app: nginx
+        app: nginx    #Pod的标签
     spec:
       containers:
       - name: n1
@@ -18,5 +18,4 @@ spec:
         imagePullPolicy: IfNotPullPresent
         ports:
         - name: http
-          contianerPort: 80
-          
+          containerPort: 80
