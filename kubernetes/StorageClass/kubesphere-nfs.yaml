@@ -5,7 +5,7 @@ metadata:
   name: glusterfs   #这里更改为官方所给的默认名字
   annotations:
     storageclass.kubernetes.io/is-default-class: "true"
-provisioner: fuseim.pri/ifs
+provisioner: kubernetes.io/glusterfs
 --- #rbac
 apiVersion: v1
 kind: ServiceAccount
@@ -96,7 +96,7 @@ spec:
             mountPath: /persistentvolumes
         env:
           - name: PROVISIONER_NAME
-            value: fuseim.pri/ifs
+            value: kubernetes.io/glusterfs
           - name: NFS_SERVER
             value: 192.168.222.219  #nfs Server的网络路径
           - name: NFS_PATH
