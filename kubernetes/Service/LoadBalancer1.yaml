@@ -31,6 +31,4 @@ spec:
   ports:
   - port: 8090
     protocol: TCP
-    targetPort: 80
-
-    
+    targetPort: 80 
