@@ -18,7 +18,7 @@ spec:
       containers:
       - name: nginx-cephfs1
         image: nginx:latest
-        imgaePullPolicy: IfNotPresent
+        imagePullPolicy: IfNotPresent
         ports:
         - name: nginx-cephfs-http
           containerPort: 80
