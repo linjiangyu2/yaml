@@ -19,7 +19,7 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - name: http-nginx
-        containerPort: 80
+          containerPort: 80
         volumeMounts:
         - name: html-data
           mountPath: /usr/share/nginx/html
