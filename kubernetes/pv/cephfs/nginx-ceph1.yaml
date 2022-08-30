@@ -4,7 +4,7 @@ kind: Secret
 metadata:
   name: ceph-secret
 data:
-  key: QVFEdDJ3MWp3VE43TEJBQVBTR3hCbDduVENvU2luTWFlOGtJY1E9PQo=   #已经经过base64加密的密钥
+  key: AQDt2w1jwTN7LBAAPSGxBl7nTCoSinMae8kIcQ==   #已经经过base64加密的密钥
 --- #定义Deployment控制器和Pod
 apiVersion: apps/v1
 kind: Deployment
