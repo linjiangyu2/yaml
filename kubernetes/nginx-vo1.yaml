@@ -8,6 +8,8 @@ spec:
   replicas: 2
   selector:
     matchLabels:
+  template:
+    metadata:
       labels:
         app: nginx-vo1
     spec:
