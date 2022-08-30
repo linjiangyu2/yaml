@@ -20,7 +20,7 @@ spec:
         image: nginx:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - name: nginx-cephfs-http
+        - name: nginx-cephfs
           containerPort: 80
         volumeMounts:
         - name: cephfs
