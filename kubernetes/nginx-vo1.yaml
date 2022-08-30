@@ -10,17 +10,18 @@ spec:
     matchLabels:
       labels:
         app: nginx-vo1
-    containers:
-    - name: nginx-vo1
-      image: nginx:latest
-      imgaePullPolicy: IfNotPresent
-      ports:
-      - name: http-nginx
-        containerPort: 80
-      volumeMounts:
-      - name: html-data
-        mountPath: /usr/share/nginx/html
-    volumes:
-    - name: html-data
-      hostPath:
-        path: /opt/html
+    spec:
+        containers:
+        - name: nginx-vo1
+          image: nginx:latest
+         imgaePullPolicy: IfNotPresent
+         ports:
+          - name: http-nginx
+           containerPort: 80
+         volumeMounts:
+         - name: html-data
+            mountPath: /usr/share/nginx/html
+        volumes:
+        - name: html-data
+          hostPath:
+            path: /opt/html
