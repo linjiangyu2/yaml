@@ -36,9 +36,9 @@ spec:
       - name: cephfs
         cephfs:
           monitors:
-          - node1:6789
-          - node2:6789
-          - node3:6789
+          - 192.168.222.219:6789
+          - 192.168.222.220:6789
+          - 192.168.222.221:6789
           user: admin
           secretFile: /etc/ceph/admin.secret
           readOnly: true
