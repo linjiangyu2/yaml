@@ -1,3 +1,10 @@
+--- #secret
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ceph-secret
+data:
+  key: QVFEdDJ3MWp3VE43TEJBQVBTR3hCbDduVENvU2luTWFlOGtJY1E9PQo=   #已经经过base64加密的密钥
 --- #定义Deployment控制器和Pod
 apiVersion: apps/v1
 kind: Deployment
@@ -35,10 +42,3 @@ spec:
           user: admin
           secretFile: /etc/ceph/admin.secret
           readOnly: true
---- #secret
-apiVersion: v1
-kind: Secret
-metadata:
-  name: ceph-secret
-data:
-  key: QVFEdDJ3MWp3VE43TEJBQVBTR3hCbDduVENvU2luTWFlOGtJY1E9PQo=   #已经经过base64加密的密钥
