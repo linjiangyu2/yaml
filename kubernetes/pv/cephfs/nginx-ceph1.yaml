@@ -41,4 +41,4 @@ kind: Secret
 metadata:
   name: ceph-secret
 data:
-  key: QVFEdDJ3MWp3VE43TEJBQVBTR3hCbDduVENvU2luTWFlOGtJY1E9PQo= #已经经过base64加密的密钥
+  key: QVFEdDJ3MWp3VE43TEJBQVBTR3hCbDduVENvU2luTWFlOGtJY1E9PQo=   #已经经过base64加密的密钥
