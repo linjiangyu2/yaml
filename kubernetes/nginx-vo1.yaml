@@ -16,7 +16,7 @@ spec:
       containers:
       - name: nginx-vo1
         image: nginx:latest
-        imgaePullPolicy: IfNotPresent
+        imagePullPolicy: IfNotPresent
         ports:
         - name: http-nginx
         containerPort: 80
