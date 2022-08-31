@@ -76,7 +76,7 @@ spec:
       - name: nginx-cephfs #容器名
         image: nginx:latest
         imagePullPolicy: IfNotPresent
-        arg:
+        args:
         - "/bin/sh"
         - "-c"
         - "echo 'kubernetes cephfs test' > /usr/share/nginx/html/index.html "
