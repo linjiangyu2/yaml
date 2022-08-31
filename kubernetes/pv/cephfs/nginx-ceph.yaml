@@ -38,9 +38,9 @@ spec:
   resources:
     requests:
       storage: 100Gi #定义需要的存储空间
-    selector:
-      matchLabels:
-        pv: cephfs-pv   #定义关联的PV
+  selector:
+    matchLabels:
+      pv: cephfs-pv   #定义关联的PV
 --- #定义SVC
 apiVersion: v1
 kind: Service
