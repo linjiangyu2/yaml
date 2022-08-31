@@ -1,0 +1,44 @@
+--- #secret
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ceph-secret
+data:
+  key: AQDt2w1jwTN7LBAAPSGxBl7nTCoSinMae8kIcQ==   #已经经过base64加密的密钥
+--- #定义Deployment控制器和Pod
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ceph1
+  labels:
+    app: nginx-ceph1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx-ceph1
+  template:
+    metadata:
+      labels:
+        app: nginx-ceph1
+    spec:
+      containers:
+      - name: nginx-cephfs1
+        image: nginx:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: nginx-cephfs
+          containerPort: 80
+        volumeMounts:
+        - name: cephfs
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: cephfs
+        cephfs:
+          monitors:
+          - 192.168.222.219:6789
+          - 192.168.222.220:6789
+          - 192.168.222.221:6789
+          user: admin
+          secretFile: /etc/ceph/admin.secret
+          readOnly: true
