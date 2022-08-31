@@ -76,10 +76,6 @@ spec:
       - name: nginx-cephfs #容器名
         image: nginx:latest
         imagePullPolicy: IfNotPresent
-        args:
-        - "/bin/sh"
-        - "-c"
-        - "echo 'kubernetes cephfs test' > /usr/share/nginx/html/index.html "
         ports:
         - name: http-nginx
           containerPort: 80
