@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-cephfs
+  namespace: default
+  labels:
+    app: cephfs1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cephfs1
+  template:
+    metadata:
+      labels:
+        app: cephfs1
+    spec:
+      containers:
+      - name: nginx-cephfs
+        image: nginx:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http-nginx
+          containerPort: 80
+        volumeMounts:
+        - name: cephfs-pvc
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: cephfs-pvc
+        persistentVolumeClaim:
+          claimName: cephfs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cephfs
+spec:
+  type: NodePort
+  selector:
+    app: cephfs1
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
