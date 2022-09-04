@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: zk-data1  #卷名
+spec:
+  capacity:
+    storage: 5Gi  #定义存储空间
+  accessModes:
+    - ReadWriteOnce  #定义权限
+  nfs:
+    server: node4.com   #定义所属的NFS服务器
+    path: /nfs/zk/data1 #NFS服务器的共享挂载目录
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: zk-data2
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    server: node4.com
+    path: /nfs/zk/data2
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: zk-data3
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    server: node4.com
+    path: /nfs/zk/data3
