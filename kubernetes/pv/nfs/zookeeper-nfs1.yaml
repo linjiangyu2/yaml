@@ -1,0 +1,132 @@
+--- # 内部访问的SVC
+apiVersion: v1
+kind: Service
+metadata:
+  name: zk-private      #SVC名
+  labels:
+    app: zk-pr   #SVC标签
+spec:
+  ports:
+  - port: 2888
+    name: server
+  - port: 3888
+    name: leader-election
+  clusterIP: None
+  selector:
+    app: zk-cluster  # 关联的Pod
+--- # 外部访问的SVC
+apiVersion: v1
+kind: Service
+metadata:
+  name: zk-public   #SVC名
+  labels:
+    app: zk-pu      #SVC标签
+spec:
+  type: NodePort
+  ports:
+  - port: 2181
+    targetPort: 2181
+    name: client
+    nodePort: 32181
+  selector:
+    app: zk-cluster # 关联的Pod
+--- # 定义PDB(限制可以挂掉的副本Pod)
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: zk-pdb
+spec:
+  selector:
+    matchLabels:
+      app: zk-cluster # 关联的Pod
+  maxUnavailable: 1   # 设定集群服务中只能挂掉一个Pod
+--- # 定义资源服务
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zk-sfs
+spec:
+  serviceName: zk-pr
+  replicas: 3
+  selector:
+    matchLabels:
+      app: zk-cluster  #控制器关联的Pod
+  template:
+    metadata:
+      labels:
+        app: zk-cluster # Pod标签
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+            matchExpressions:
+              - key: "app"
+                operator: In
+                values:
+                - zk-cluster
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: kubernets-zookeeper  # 容器名
+        image: zookeeper
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            memory: "10Gi"
+            cpu: "0.5"
+        ports:
+        - containerPort: 2181
+          name: client
+        - containerPort: 2888
+          name: server
+        - containerPort: 3888
+          name: leader-election
+        command:
+        - sh
+        - -c
+        - "start-zookeeper \
+          --server=3 \
+          --data_dir=/var/lib/zookeeper/data \
+          --data_log_dir=/var/lib/zookeeper/data/log \
+          --conf_dir=/opt/zookeeper/conf \
+          --client_port=2181 \
+          --election_port=3888 \
+          --server_port=2888 \
+          --tick_time=2000 \
+          --init_limit=10 \
+          --sync_limit=5 \
+          --heap=512M \
+          --max_client_cnxns=60 \
+          --snap_retain_count=3 \
+          --purge_interval=12 \
+          --max_session_timeout=40000 \
+          --min_session_timeout=4000 \
+          --log_level=INFO"
+        readinessProbe:
+          exec: 
+            command:
+            - sh
+            - -c
+            - "zookeeper-ready 2181"
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - "zookeeper-ready 2181"
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        volumeMounts:
+        - name: datadir
+          mountPath: /var/lib/zookeeper
+
+    volumeClaimTemplates:
+    - metadata:
+        name: datadir
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 20Gi
