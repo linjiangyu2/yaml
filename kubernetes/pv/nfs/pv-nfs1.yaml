@@ -4,7 +4,7 @@ metadata:
   name: zk-data1  #卷名
 spec:
   capacity:
-    storage: 5Gi  #定义存储空间
+    storage: 30Gi  #定义存储空间
   accessModes:
     - ReadWriteOnce  #定义权限
   nfs:
@@ -17,7 +17,7 @@ metadata:
   name: zk-data2
 spec:
   capacity:
-    storage: 5Gi
+    storage: 30Gi
   accessModes:
     - ReadWriteOnce
   nfs:
@@ -30,7 +30,7 @@ metadata:
   name: zk-data3
 spec:
   capacity:
-    storage: 5Gi
+    storage: 30Gi
   accessModes:
     - ReadWriteOnce
   nfs:
