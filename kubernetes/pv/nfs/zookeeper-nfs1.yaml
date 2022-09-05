@@ -60,11 +60,11 @@ spec:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
-            matchExpressions:
-              - key: "app"
-                operator: In
-                values:
-                - zk-cluster
+              matchExpressions:
+                - key: "app"
+                  operator: In
+                  values:
+                  - zk-cluster
             topologyKey: "kubernetes.io/hostname"
       containers:
       - name: kubernets-zookeeper  # 容器名
